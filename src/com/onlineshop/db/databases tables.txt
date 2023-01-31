@@ -1,0 +1,129 @@
+create database onlineshopping;
+use onlineshopping;
+
+
+
+
+
+CREATE TABLE category (
+  cId int NOT NULL AUTO_INCREMENT,
+  cName varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  cDesc varchar(100) DEFAULT NULL,
+  PRIMARY KEY (cId)
+);
+
+
+
+
+
+
+
+CREATE TABLE product (
+  pId int NOT NULL AUTO_INCREMENT,
+  pName varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  pDescription varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  pPhoto varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  pPrice int NOT NULL,
+  pCategory varchar(100) NOT NULL,
+  PRIMARY KEY (pId)
+);
+
+
+
+
+
+
+CREATE TABLE user (
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(200) NOT NULL,
+  email varchar(200) NOT NULL,
+  password varchar(200) NOT NULL,
+  mobile int NOT NULL,
+  profile varchar(100) NOT NULL DEFAULT 'default.png',
+  address varchar(200) DEFAULT NULL,
+  city varchar(100) DEFAULT NULL,
+  state varchar(100) DEFAULT NULL,
+  country varchar(100) DEFAULT NULL,
+  pincode int DEFAULT NULL,
+  userType varchar(100) NOT NULL DEFAULT 'normal',
+  PRIMARY KEY (id),
+  UNIQUE KEY email (email)
+);
+
+
+
+
+
+
+
+
+CREATE TABLE cart (
+  ItemNo int NOT NULL AUTO_INCREMENT,
+  userId int DEFAULT NULL,
+  productId int DEFAULT NULL,
+  productName varchar(1000) DEFAULT NULL,
+  productPhoto varchar(1000) DEFAULT NULL,
+  productQuantity int DEFAULT NULL,
+  productPrice int DEFAULT NULL,
+  totalPrice int DEFAULT NULL,
+  KEY ItemNo (ItemNo),
+  KEY userId (userId),
+  KEY productId (productId),
+  CONSTRAINT cart_ibfk_1 FOREIGN KEY (userId) REFERENCES user (id),
+  CONSTRAINT cart_ibfk_2 FOREIGN KEY (productId) REFERENCES product (pId)
+);
+
+
+
+
+
+
+CREATE TABLE ordertable (
+  orderId int NOT NULL AUTO_INCREMENT,
+  userId int DEFAULT NULL,
+  productId int DEFAULT NULL,
+  productName varchar(1000) DEFAULT NULL,
+  productQuantity int DEFAULT NULL,
+  productPrice int DEFAULT NULL,
+  totalPrice int DEFAULT NULL,
+  address varchar(1000) DEFAULT NULL,
+  city varchar(1000) DEFAULT NULL,
+  state varchar(1000) DEFAULT NULL,
+  country varchar(1000) DEFAULT NULL,
+  mobile int DEFAULT NULL,
+  pincode int DEFAULT NULL,
+  paymentOption varchar(1000) DEFAULT NULL,
+  Tid varchar(1000) DEFAULT NULL,
+  orderStatus varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (orderId),
+  KEY userId_idx (userId),
+  KEY productId_idx (productId),
+  CONSTRAINT productId FOREIGN KEY (productId) REFERENCES product (pId),
+  CONSTRAINT userId FOREIGN KEY (userId) REFERENCES user (id)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
